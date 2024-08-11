@@ -1,0 +1,344 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Asp.netApp.Areas.Admin.Services.Auth;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Asp.netApp.Areas.Admin.Models.ViewModels.Shared
+
+@inject AuthService AuthService
+
+@{
+   var userClaims = User.Claims;
+    var role = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+}
+
+@if (role.Equals("ADMIN"))
+{
+
+    <!--User menu-->
+    <li class="nav-item">
+        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarAuth">
+            <i class="mdi mdi-account-circle-outline"></i> <span data-key="t-authentication">@_localization.GetKey("Account")</span>
+        </a>
+        <div class="collapse menu-dropdown" id="sidebarAuth">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Account" class="nav-link">
+                        @_localization.GetKey("List")
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Create" asp-controller="Account" class="nav-link">
+                        @_localization.GetKey("Add")
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </li>
+
+
+
+    <!--Category menu-->
+    <li class="nav-item">
+        <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarUI">
+            <i class="mdi mdi-cube-outline"></i> <span data-key="t-base-ui">@_localization.GetKey("Category")</span>
+        </a>
+        <div class="collapse menu-dropdown" id="sidebarUI">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Category" class="nav-link">
+                        @_localization.GetKey("List")
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Create" asp-controller="Category" class="nav-link">
+                        @_localization.GetKey("Add")
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <!--Brand menu-->
+    <li class="nav-item">
+        <a class="nav-link menu-link" href="#sidebarUIz" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarUIz">
+            <i class="mdi mdi-view-grid-plus-outline"></i> <span data-key="t-base-ui">@_localization.GetKey("Brand")</span>
+        </a>
+        <div class="collapse menu-dropdown" id="sidebarUIz">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Brand" class="nav-link">
+                        @_localization.GetKey("List")
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Create" asp-controller="Brand" class="nav-link">
+                        @_localization.GetKey("Add")
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    
+}
+
+
+    @if (role.Equals("MANAGER")  || role.Equals("ADMIN") )
+    { 
+        <!--Product-->
+<li class="nav-item">
+    <a class="nav-link menu-link collapsed" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button"
+        aria-expanded="false" aria-controls="sidebarAdvanceUI">
+            <i class="mdi mdi-layers-triple-outline"></i> <span data-key="t-advance-ui">@_localization.GetKey("Product")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Product" class="nav-link">
+                        @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                    <a asp-action="Create" asp-controller="Product" class="nav-link">
+                        @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+        
+    }
+   
+
+@if (role.Equals("ADMIN") || role.Equals("STAFF"))
+{
+    
+<!--Attribute-->
+<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarTables" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarTables">
+            <i class="mdi mdi-grid-large"></i> <span data-key="t-tables">@_localization.GetKey("Attribute")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarTables">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Attribute" class="nav-link">
+                        @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                    <a asp-action="Create" asp-controller="Attribute" class="nav-link">
+                        @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+
+<!--
+
+
+<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarCharts">
+            <i class="mdi mdi-chart-donut"></i> <span data-key="t-charts">@_localization.GetKey("PostCategory")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarCharts">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                        @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                        @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+    -->
+}
+@if(role.Equals("MANAGER") || role.Equals("ADMIN")){
+    
+<!--
+<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarMaps" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarMaps">
+            <i class="mdi mdi-map-marker-outline"></i> <span data-key="t-maps">@_localization.GetKey("Post")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarMaps">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                        @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                        @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+    Post-->
+}
+@if (role.Equals("ADMIN"))
+{
+    <!--
+<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarMultilevel" data-bs-toggle="collapse" role="button"
+        aria-expanded="false" aria-controls="sidebarMultilevel">
+            <i class="mdi mdi-share-variant-outline"></i> <span data-key="t-multi-level">@_localization.GetKey("Order")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarMultilevel">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                    @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                    @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+    -->
+<!--
+
+<li class="nav-item">
+    <a class="nav-link menu-link collapsed" href="#sidebarForms" data-bs-toggle="collapse" role="button"
+        aria-expanded="false" aria-controls="sidebarForms">
+        <i class="mdi mdi-form-select"></i> <span data-key="t-forms">Comment</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarForms">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                    @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                    @_localization.GetKey("Add")
+                </a>
+
+            </li <li class="nav-item">
+            <a href="#sidebarSignUp" class="nav-link">
+                Xác nhận comment
+            </a>
+
+</li>
+</ul>
+</div>
+-->
+<!---</li>--> <!--Mã giảm giá menu
+<li class="nav-item">
+    <a class="nav-link menu-link collapsed" href="#sidebarFormsz" data-bs-toggle="collapse" role="button"
+        aria-expanded="false" aria-controls="sidebarForms">
+        <i class="mdi mdi-account-circle-outline"></i> <span data-key="t-forms">Mã giảm giá</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarFormsz">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                    @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                    @_localization.GetKey("Add")
+                </a>
+
+            </li <li class="nav-item">
+            <a href="#sidebarSignUp" class="nav-link">
+                Xác nhận comment
+            </a>
+
+</li>
+</ul>
+</div>
+</li>
+    -->
+<!--Role menu
+<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarLanding">
+        <i class="ri-rocket-line"></i> <span data-key="t-landing">Role</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarLanding">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                    @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                    @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+    -->
+}
+
+    @if (role.Equals("MANAGER") || role.Equals("STAFF") || role.Equals("ADMIN"))
+    {
+        
+<!--Language-->
+<!--<li class="nav-item">
+    <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false"
+        aria-controls="sidebarPages">
+            <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-pages">@_localization.GetKey("Language")</span>
+    </a>
+    <div class="collapse menu-dropdown" id="sidebarPages">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="#sidebarSignIn" class="nav-link">
+                    @_localization.GetKey("List")
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a href="#sidebarSignUp" class="nav-link">
+                    @_localization.GetKey("Add")
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</li>
+        -->
+
+}
+ 

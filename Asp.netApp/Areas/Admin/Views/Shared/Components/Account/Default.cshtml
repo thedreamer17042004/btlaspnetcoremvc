@@ -1,0 +1,127 @@
+﻿@using X.PagedList.Mvc.Core;
+@using Microsoft.Extensions.Localization
+@using Asp.netApp.Areas.Admin.Resources
+@using Asp.netApp.Areas.Admin.Models.ViewModels.Account.LanguageModel
+
+@inject IViewLocalizer _localization;
+
+@{
+    Layout = null;
+    var items = ViewBag.accounts as X.PagedList.IPagedList<Asp.netApp.Areas.Admin.Models.DataModel.Account>;
+  
+}
+
+
+
+<table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+    <thead>
+   <tr>
+            <th scope="col" style="width: 10px;">
+                <div class="form-check">
+                    <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
+                </div>
+            </th>
+            <th data-ordering="false">
+                @_localization["SRNo"]
+                </th>
+            <th data-ordering="false">
+                @_localization["Username"]
+            </th>
+            <th data-ordering="false">
+                @_localization["Email"]
+            </th>
+            <th data-ordering="false">
+                @_localization["Status"]
+            </th>
+            <th data-ordering="false">
+                @_localization["Role"]
+            </th>
+          
+            <th> @_localization["Action"]</th>
+        </tr>
+         
+    </thead>
+    <tbody>
+        @if (items != null)
+        {
+            @foreach (var account in items.Select((value, index) => new { value, index }))
+            {
+       
+                    <tr >
+                        <th scope="row">
+                            <div class="form-check">
+                                <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
+                            </div>
+                        </th>
+                        <td> @(account.index + 1)</td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => account.value.Username)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => account.value.Email)
+                        </td>
+                        <td>
+
+                            @if (account.value.Active == true)
+                            {
+                                <span class="badge bg-danger">Hoạt động</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info">Không hoạt động</span>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => account.value.Role.RoleName)
+                        </td>
+
+                        <td>
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a asp-action="Details" asp-controller="Account" asp-route-id="@account.value.AccountId" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
+
+                                    <li><a asp-action="Edit" asp-controller="Account" asp-route-id="@account.value.AccountId" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+
+                                    <li>
+                                        <a class="dropdown-item remove-item-btn" asp-action="Delete" asp-controller="Account" asp-route-id="@account.value.AccountId">
+                                            <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+               
+
+        }
+            
+        }
+  
+
+
+    </tbody>
+</table>
+
+
+<ul class="pagination" style="justify-content:flex-end">
+    @Html.PagedListPager(
+            items,
+            page => Url.Action("Index", "Account", new { page = page, roleId = ViewBag.roleId, status = ViewBag.status, s = ViewBag.s }),
+            new PagedListRenderOptions
+    {
+        UlElementClasses = new[] { "pagination" }, // Add a class to the <ul> element
+
+        LiElementClasses = new[] { "page-item" }, // Add a class to each <li> element
+        PageClasses = new[] { "page-link" }, // Add a class to each page link
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = PagedListDisplayMode.Always
+    }
+       )
+</ul>

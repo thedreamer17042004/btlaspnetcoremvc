@@ -1,0 +1,110 @@
+﻿@model Asp.netApp.Areas.Admin.Models.ViewModels.Category.CategoryEditViewModel;
+
+@inject IViewLocalizer _localizer;
+
+
+<div class="row">
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["info"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div>
+                    <label asp-for="CategoryName" class="form-label ">
+                        @_localizer["name"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input readonly type="text" class="form-control form-control-icon" asp-for="CategoryName" value="@Model.CategoryName" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["name"]">
+                        <i class="ri-account-circle-line"></i>
+                    </div>
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["status"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+                <div class="col-12">
+                    <label asp-for="Active" class="form-label mt-1">
+                        @_localizer["status"]<span style="color:red">(*)</span>
+                    </label>
+                    <select disabled asp-for="Active" class="form-select mb-3" aria-label="Default select example">
+                        <option selected="" value="">@_localizer["selectstatus"]</option>
+                        <option value="1">@_localizer["active"]</option>
+                        <option value="0">@_localizer["inactive"]</option>
+                    </select>
+                    <span asp-validation-for="Active" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["image"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div class="mt3">
+                   
+                    @if (Model.Picture != null)
+                    {
+                        <img src="/images/@Model.Picture" width="150px"/>
+                    }else
+                    {
+                        <span>No image</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12 text-right">
+
+        @if ((bool)ViewData["btnCheck"])
+
+        {
+
+            <input type="hidden" class="form-control form-control-icon" value="@ViewBag.Id" name="id" id="iconrightInput" placeholder="Enter password">
+
+
+            <input type="submit" value="@_localizer["delete"]" class="btn btn-danger btn btn-danger btn-animation waves-effect waves-light" />
+
+
+        }
+
+        <a asp-action="Index" asp-controller="Category" class="btn rounded-pill btn-primary waves-effect waves-light">@_localizer["back"]</a>
+    </div>
+
+</div>
+

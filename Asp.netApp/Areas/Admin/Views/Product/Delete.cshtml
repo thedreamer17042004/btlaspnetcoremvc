@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@inject IViewLocalizer _localizer;
+<form asp-action="Delete" asp-controller="Product" method="post" enctype="multipart/form-data">
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">@_localizer["tablename"]</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">@_localizer["delete"]</a></li>
+                            <li class="breadcrumb-item active">@_localizer["product"]</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        @await Component.InvokeAsync("Product", new { viewType = "Detail", btnShow = true })
+
+
+    </div>
+
+</div>
+<!-- container-fluid -->
+    </div>
+
+  
+</form>
+
+
+
+@section Styles {
+    <!-- quill css -->
+    <link href="/admin/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <!-- ckeditor -->
+    <script src="/admin/libs/%40ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+
+    <!-- quill js -->
+    <script src="/admin/libs/quill/quill.min.js"></script>
+
+    <!-- init js -->
+    <script src="/admin/js/pages/form-editor.init.js"></script>
+    <script>
+        // Initialize Quill editor
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        const form = document.getElementById('myForm');
+        var existingContent = '@Html.Raw(Model.Description)';
+        if (existingContent) {
+            quill.root.innerHTML = existingContent;
+        }
+        // Add a submit event listener to the form
+        form.addEventListener('submit', function (event) {
+            // Show an alert
+            var descriptionInput = document.querySelector('input[name=Description]');
+            descriptionInput.value = quill.root.innerHTML; // Get the content from Quill editor
+
+        });
+
+
+    </script>
+}

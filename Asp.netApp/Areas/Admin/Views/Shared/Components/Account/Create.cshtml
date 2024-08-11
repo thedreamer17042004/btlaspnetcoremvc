@@ -1,0 +1,222 @@
+﻿@model Asp.netApp.Areas.Admin.Models.ViewModels.Account.AccountViewModel;
+@using Microsoft.Extensions.Localization
+@using Asp.netApp.Areas.Admin.Resources
+
+
+@inject IViewLocalizer _localizer;
+
+<div class="row">
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["maininformation"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div>
+                    <label asp-for="Username" class="form-label ">
+                        @_localizer["username"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input type="text" class="form-control form-control-icon" asp-for="Username" value="@Model.Username" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["username"]">
+                        <i class="ri-account-circle-line"></i>
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="mt3">
+                    <label asp-for="Email" class="form-label mt-1">
+                        @_localizer["email"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input type="email" class="form-control form-control-icon" asp-for="Email" value="@Model.Email" id="iconrightInput" placeholder="example@gmail.com">
+                        <i class="ri-mail-unread-line"></i>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Password" class="form-label mt-1">
+                        @_localizer["password"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input type="text" class="form-control form-control-icon" asp-for="Password" value="@Model.Password" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["password"]">
+                        <i class="ri-lock-2-line"></i>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["otherinformation"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div>
+                    <label asp-for="FirstName" class="form-label ">
+                        @_localizer["firstname"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input type="text" class="form-control form-control-icon" asp-for="FirstName" value="@Model.FirstName" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["firstname"]">
+                        <i class="ri-account-circle-line"></i>
+                    </div>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mt3">
+                    <label asp-for="LastName" class="form-label mt-1">
+                        @_localizer["lastname"]<span style="color:red">(*)</span>
+                    </label>
+                    <div class="form-icon right">
+                        <input type="text" class="form-control form-control-icon" asp-for="LastName" value="@Model.LastName" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["lastname"]">
+                        <i class="ri-account-circle-line"></i>
+                    </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="Gender" class="form-label mt-1">
+                            @_localizer["gender"]<span style="color:red">(*)</span>
+                        </label>
+                        <select asp-for="Gender" class="form-select mb-3"  aria-label="Default select example">
+                            <option selected="" value="">@_localizer["selectgender"] </option>
+                            <option value="1">@_localizer["male"]</option>
+                            <option value="2">@_localizer["female"]</option>
+
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Active" class="form-label mt-1">
+                            @_localizer["status"]<span style="color:red">(*)</span>
+                        </label>
+                        <select asp-for="Active" class="form-select mb-3" aria-label="Default select example">
+                            <option selected="" value="">@_localizer["selectstatus"] </option>
+                            <option value="1">@_localizer["active"]</option>
+                            <option value="2">@_localizer["inactive"]</option>
+                        </select>
+                        <span asp-validation-for="Active" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["addressphone"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div>
+                    <label asp-for="Phone" class="form-label ">
+                        @_localizer["phone"]
+                    </label>
+                    <div class="form-icon right">
+                        <input type="text" class="form-control form-control-icon" asp-for="Phone" value="@Model.Phone" id="iconrightInput" placeholder="@_localizer["enter"] @_localizer["phone"]">
+                        <i class="bx bx-phone"></i>
+
+                    </div>
+                       <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="mt3">
+                    <label asp-for="Address" class="form-label mt-1">
+                        @_localizer["address"]
+                    </label>
+                    <textarea class="form-control" id="meassageInput" rows="3" placeholder="@_localizer["enter"]  @_localizer["address"]" asp-for="Address">@Model.Address</textarea>
+                </div>
+                <span asp-validation-for="Address" class="text-danger"></span>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["birthdayavatar"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+                <div>
+                    <label asp-for="Birthday" class="form-label ">
+                        @_localizer["birthday"]
+                    </label>
+                    <input type="date" class="form-control" asp-for="Birthday"  data-provider="flatpickr" id="dateInput">
+                </div>
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+                <div class="mt3">
+                    <label for="iconrightInput" class="form-label mt-1">
+                        @_localizer["image"]
+                    </label>
+                    <div class="form-icon right">
+                    <input type="file" name="uploadFile" class="form-control form-control-icon" id="iconrightInput">
+                        <i class="mdi mdi-file-image-minus-outline"></i>
+                    </div>
+                </div>
+              </div>
+   
+          </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">@_localizer["authorize"]</h4>
+
+            </div><!-- end card header -->
+            <div class="card-body">
+
+
+                <div class="col-12">
+                    <label asp-for="RoleId" class="form-label mt-1">
+                        @_localizer["role"]<span style="color:red">(*)</span>
+                    </label>
+                    <select asp-for="RoleId" class="form-select mb-3" aria-label="Default select example">
+                        <option selected="" value="">@_localizer["selectrole"] </option>
+                        @foreach (var item in ViewBag.roles)
+                        {
+                            <option value="@item.RoleId">@item.RoleName</option>
+                        }
+
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12 text-right">
+        <button type="submit" class="btn rounded-pill btn-primary waves-effect waves-light">@_localizer["submit"]</button>
+    </div>
+
+</div>
+
+
+
